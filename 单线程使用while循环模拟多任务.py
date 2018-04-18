@@ -1,8 +1,6 @@
 import socket
 import re
 
-import time
-
 
 def main():
     tcp_server = WebServer()
@@ -23,7 +21,7 @@ class WebServer(object):
                 # 客户端也是非堵塞
                 client.setblocking(False)
 
-                # 放到我们的列表中
+                # 放到列表中
                 clients.append(client)
             except Exception as e:
                 pass
@@ -65,16 +63,11 @@ class WebServer(object):
         except Exception as e:
             print(e)  # 工作中是记录到文件
 
-        # 返回数据
-        # 响应头
-        # 空行
-        # 响应体
+        # 进行响应
         try:
             headers = "HTTP/1.1 200 OK\r\n"
 
-            # 会根据不同的地址返回不的内容
-            # 打开文件写读文件内容
-            with open("./html%s" % file_name, 'rb') as f:  # 这样写有一个好处,如果是图片就不会有问题
+            with open("./html%s" % file_name, 'rb') as f:  
                 body = f.read()  # 读取文件
 
             # body = "show page is find!"
@@ -97,8 +90,8 @@ class WebServer(object):
         # 关闭客户端
         client.close()
 
-    # alt+j列编辑
-    def __init__(self):  # ctrl+B进入到函数
+
+    def __init__(self):  
         """ 初始化tcp服务器"""
         # 服务器tcp服务器对象
         self.tcp_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -109,7 +102,6 @@ class WebServer(object):
         # 改成被动模式
         self.tcp_server.listen(128)
 
-    # return tcp_server
 
 
 if __name__ == '__main__':
