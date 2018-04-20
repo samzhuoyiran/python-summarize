@@ -17,36 +17,35 @@
 	2. @xx装饰你要装饰的函数
 	# 这里就直接写万能装饰器了
 	def set_fun(func):
-		def call_fun(*args,**kwargs):
-			return func(*args,**kwargs)
-		return call_fun
+	    def call_fun(*args,**kwargs):
+		return func(*args,**kwargs)
+	    return call_fun
 		
 	@set_fun
 	def test():
-		pass
+	    pass
 ### 一个装饰器装饰函数
 	如上,使用语法糖@装饰函数的引用,这里可能是很多人对装饰器不理解的原因吧;
-	我们可以这样来看 @set_fun ==> test = set_fun(test) = call_fun,这个时候test就已经指向了闭包中
-	的call_fun;
+	我们可以这样来看 @set_fun ==> test = set_fun(test) = call_fun,这个时候test就已经指向了闭包中的call_fun;
 	这样当我们创建函数对象时执行的顺序就执行我们装饰过的函数了.
 
 	
 ### 两个装饰器装饰一个函数
 	
 	def set_fun1(func):
-		def call_fun1(*args,**kwargs):
-			return func(*args,**kwargs)
-		return call_fun1
+	    def call_fun1(*args,**kwargs):
+		return func(*args,**kwargs)
+	    return call_fun1
 		
 	def set_fun2(func):
-		def call_fun2(*args,**kwargs):
-			return func(*args,**kwargs)
-		return call_fun2
+	    def call_fun2(*args,**kwargs):
+		return func(*args,**kwargs)
+	    return call_fun2
 		
 	@set_fun1
 	@set_fun2
 	def test():
-		pass
+	    pass
 	
 	test()
 + 代码的执行顺序是从上往下的,首先遇见`@set_fun1`,但是它的下面并不是一个函数,无法进行装饰;
@@ -58,28 +57,28 @@
 多个装饰器装饰一个函数的道理和上面说的相同
 ### 装饰器传参
 	def set_args(args):
-		print(args)		
-		def set_fun(func):	
-			def call_fun(*args,**kwargs):
-				return func(*args,**kwargs)
-			return call_fun
+	    print(args)		
+	    def set_fun(func):	
+		def call_fun(*args,**kwargs):
+		    return func(*args,**kwargs)
+		return call_fun
 		
 	@set_args(args)
 	def test():
-		pass
+	    pass
 + 装饰器传参就相当于三层函数嵌套,在闭包的外面包裹一层函数用来处理传入的参数.
 
 ### 类装饰器
 	class Funcc(object):
-		def __init__(self,func):
-			self.func = func
+	    def __init__(self,func):
+		self.func = func
 
-		def __call__(self, *args, **kwargs):
-			self.func()
+	    def __call__(self, *args, **kwargs):
+		self.func()
 
 	@Funcc    #test = Funcc(test)
 	def test():
-		pass
+	    pass
 
 	test()
 + 类装饰器类似函数装饰器,创建类对象时使用一个`__init__`方法接收需要装饰的函数,并定义`__call__`方法运行需要添加的功能并执行原先的函数代码
