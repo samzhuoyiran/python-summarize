@@ -11,4 +11,4 @@
 
 [python正则概述](https://github.com/samzhuoyiran/python-summarize/blob/master/python%E6%AD%A3%E5%88%99%E6%A6%82%E8%A7%88.md)<bz>
   
-[python中生成器与列表推导式的说明差异](python-summarize/python的生成器和列表推导式的说明.md)
+[python中生成器与列表推导式的说明差异](https://github.com/samzhuoyiran/python-summarize/edit/master/python%E7%9A%84%E7%94%9F%E6%88%90%E5%99%A8%E5%92%8C%E5%88%97%E8%A1%A8%E6%8E%A8%E5%AF%BC%E5%BC%8F%E7%9A%84%E8%AF%B4%E6%98%8E.md)
