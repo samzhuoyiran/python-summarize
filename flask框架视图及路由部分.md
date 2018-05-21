@@ -32,11 +32,13 @@ Flask 应用程序将一些常用的配置设置成了应用程序对象的属�
           return 'demo1'
 #### 给路由传参
 有时我们需要将同一类 URL 映射到同一个视图函数处理，比如：使用同一个视图函数来显示不同用户的个人信息.
+
       # 路由传递参数
       @app.route('/user/<user_id>')
       def user_info(user_id):
           return 'hello %s' % user_id
 + 路由传递的参数默认当做 string 处理，也可以指定参数的类型
+
       # 路由传递参数
       @app.route('/user/<int:user_id>')
       def user_info(user_id):
@@ -45,6 +47,7 @@ Flask 应用程序将一些常用的配置设置成了应用程序对象的属�
 #### 指定请求方式
 在Flask中定义一个路由,默认的请求方式是:GET、OPTIONS(自带)、HEAD(自带)<br>
 如果想添加请求方式,那可以如下指定:
+
       @app.route('/demo2', methods=['GET', 'POST'])
       def demo2():
           # 直接从请求中取到请求方式并返回
@@ -57,6 +60,7 @@ Flask 应用程序将一些常用的配置设置成了应用程序对象的属�
 + 自定义状态码
 #### 返回JSON
 在使用 Flask 写一个接口时候需要给客户端返回 JSON 数据，在 Flask 中可以直接使用 jsonify 生成一个 JSON 的响应
+
       # 返回JSON  导入jsonify方法
       from flask import jsonify
       @app.route('/demo4')
@@ -70,6 +74,7 @@ Flask 应用程序将一些常用的配置设置成了应用程序对象的属�
 
 ### 重定向
 + 重定向到百度
+
       # 重定向 导入redirect方法
       form flask import redirect
       @app.route('/demo5')
@@ -78,6 +83,7 @@ Flask 应用程序将一些常用的配置设置成了应用程序对象的属�
 + 重定向到自己写的视图函数
   + 也可以直接填写自己的url路径
   + 也可以使用url_for生成指定视图函数所对应的url
+  
         form flask import Flask,redirect,url_for
         app = Flask(__name__)
         # 路由传递参数
@@ -91,6 +97,7 @@ Flask 应用程序将一些常用的配置设置成了应用程序对象的属�
 
 ### 自定义状态码
 + 在flask中可以很方便的定义状态码,以实现不符合http协议的状态码,可以用于前后端的数据交互
+
       # 自定义状态码
       @app.route('/demo6')
       def demo6():
@@ -105,8 +112,10 @@ Flask 应用程序将一些常用的配置设置成了应用程序对象的属�
 + 使用自定义转换器实现自定义匹配规则
 #### 代码实现
 + 导入转换器基类:
+
       from werkzeug.routing import BaseConverter
 + 自定义转换器类:
+
       class RegexConverter(BaseConverter):
           def __init__(self,map,args):
               super(RegexConverter,self).__init__(map)
@@ -115,6 +124,7 @@ Flask 应用程序将一些常用的配置设置成了应用程序对象的属�
 + 添加自定义的转换器到默认的转换器字典中,并指定转换器使用时名字为:re
       app.url_map.converter['re'] = RegexConverter
 + 使用自定义转换器实现自定义匹配规则
+
       @app.route('/<re("[a-z]{3}":args)>')
       def re_args(args):
           return 'hello %s' % args
@@ -206,12 +216,13 @@ request是flask中代表当前请求的request对象,其中一个请求上下文
 
 #### 示例
 + 获取上传图片并保存到本地
-      # 导入request方法
-      from flask import Flask
-      app = Flask(__name__)
-      @app.route('/savefile',methods=['POST'])
-      def save_file():
-          img = req
+
+            # 导入request方法
+            from flask import Flask
+            app = Flask(__name__)
+            @app.route('/savefile',methods=['POST'])
+            def save_file():
+                img = req
 
 ### 状态保持
 实现状态保持主要有两种:
@@ -317,4 +328,4 @@ routing模块内部有:
         # 管理器代替app运行run方法
         manager.run()
 作用:在终端可以通过命令的形式运行项目
->Flask-Script 还可以为当前应用程序添加脚本命令，后续项目中会使用到
+>Flask-Script 还可以为当前应用程序添加脚本命令
