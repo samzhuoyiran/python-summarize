@@ -106,3 +106,45 @@
 	        return HttpResponse('ok')
 	        
 	        
+### 中间件
+
+django的中间件是一个轻量级、底层的插件系统，，可以介入Django的请求和响应处理过程，修改Django的输入或输出。中间件的设计为开发者提供了一种无侵入式的开发方式，增强了Django框架的健壮性。
+
+我们可以使用中间件，在Django处理视图的不同阶段对输入或输出进行干预。
+
+**1 中间件的定义方法**
+
+可以定义一个中间件工厂函数，然后返回一个可以被调用的中间件
+
+中间价工厂函数需要接受一个可以调用的get_response对象
+
+返回的中间件也是一个可以被调用的对象，并且像视图一样需要接受一个request对象参数，返回一个response对象
+
+	def simple_middleware(get_response):
+		# 此处编写的代码尽在Django第一次配置和初始化的时候执行一次
+		
+		def middleware(request):
+			# 此处编写的代码会在每次请求处理视图前被调用
+			response = get_response(request)
+			# 此处编写的代码会在每个	请求处理视图之后调用
+			return response
+		return middleware
+		
+**我们自定义的中间件完成之后，需要在项目同名文件夹中的settings.py文件中添加注册中间件**
+
+	MIDDLEWARE = [
+	    'django.middleware.security.SecurityMiddleware',
+	    'django.contrib.sessions.middleware.SessionMiddleware',
+	    'django.middleware.common.CommonMiddleware',
+	    'django.middleware.csrf.CsrfViewMiddleware',
+	    'django.contrib.auth.middleware.AuthenticationMiddleware',
+	    'django.contrib.messages.middleware.MessageMiddleware',
+	    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+	    'users.middleware.my_middleware',  # 添加自定义中间件
+	]
+
+**2 多个中间件的执行顺序**
+
++ 在请求视图被处理前，中间件由上至下依次执行
++ 在请求视图被处理后，中间件右下至上依次执行
+
