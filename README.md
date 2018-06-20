@@ -1,6 +1,4 @@
 # python-summarize
--
-
 #### python中GIL锁问题
 
 #### python单线程非阻塞循环模拟多任务
@@ -15,8 +13,12 @@
 
 #### flask 视图及路由
 
-####  Flask的模板部分
+#### 自定义django模型管理器
+
+#### Flask的模板部分
 
 #### django中类视图与中间件
 
 #### 一行python代码可以做什么
+
+#### django中的模型（model）简介说明
